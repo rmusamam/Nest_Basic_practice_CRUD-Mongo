@@ -6,10 +6,10 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 
 @Module({
-  
+
   controllers: [AppController],
   providers: [AppService],
-  imports: [ProductModule,MongooseModule.forRoot('mongodb://localhost/nest')],
+  imports: [ProductModule,MongooseModule.forRoot('mongodb://localhost/nest',{dbName: 'studentdb'})],
 
 })
 export class AppModule {}
