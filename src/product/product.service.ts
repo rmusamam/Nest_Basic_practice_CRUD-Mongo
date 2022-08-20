@@ -12,7 +12,7 @@ export class ProductService {
   constructor(@InjectModel('Product') private product:Model<ProductDocument>) { }
  
   async create(createProductDto: CreateProductDto):Promise<Product> {
-  const product = await new this.product(createProductDto) ;
+  const product = await new this.product(createProductDto)                           ;
   
   if(!product){
     console.log('the new product could not saved:',product)
@@ -24,8 +24,8 @@ export class ProductService {
     // return (createProductDto);
   }
 
-  findAll() {
-    const productFind=this.product.find().exec()
+  async findAll() {
+    const productFind= await this.product.find().exec()
     console.log('finding product: ',productFind);
     
     if(!productFind || !productFind[0])
@@ -35,7 +35,8 @@ export class ProductService {
     return productFind;
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
+    
     const productFindById=await this.product.findOne({id}).exec()
     if(!productFindById){
       throw new HttpException('not found',404)

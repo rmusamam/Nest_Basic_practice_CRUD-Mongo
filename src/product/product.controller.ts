@@ -3,23 +3,25 @@ import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 
-@Controller('product')
+@Controller('/')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
-  @Post()
+  @Post('createProducts')
   create(@Body() createProductDto: CreateProductDto) {
     return this.productService.create(createProductDto);
   }
 
-  @Get()
+  @Get('readAllProducts')
   findAll() {
     return this.productService.findAll();
   }
 
-  @Get(':id')
+  @Get('readById/:id')
   findOne(@Param('id') id: string) {
-    return this.productService.findOne(+id);
+    // console.log('this is id: ',id);
+    const pid =id
+    return this.productService.findOne(pid);
   }
 
   @Patch(':id')
