@@ -37,22 +37,29 @@ export class ProductService {
 
   async findOne(id: string) {
     
-    const productFindById=await this.product.findOne({id}).exec()
+    console.log('title in : ',id);
+    
+    const productFindById=await this.product.findOne({title:id})
+    console.log('data by title in mongoDB : ',productFindById)
     if(!productFindById){
       throw new HttpException('not found',404)
     }
-
+    
     return `This Id: #${id} returned the Product: ${productFindById}`;
   }
 
-  async update(id: number, updateProductDto: UpdateProductDto) {
-    const productUpdate= await this.product.updateOne({id},{updateProductDto})
+  async update(id: string, updateProductDto: UpdateProductDto) {
+    console.log('update data: ',updateProductDto,'and id is : ',id)
+    const productUpdate= await this.product.findByIdAndUpdate({_id:id},{title:updateProductDto.title})
+    console.log('the updated product: ',productUpdate)
     return `This action updates a #${id} product: ${productUpdate}`;
   }
 
-  async remove(id: number) {
-    const deleteProduct= await this.product.deleteOne({id}).exec()
-    if(deleteProduct.deletedCount == 0){
+  async remove(id: string) {
+    
+    const deleteProduct= await this.product.findByIdAndDelete({_id: id})
+    console.log('deleted product: ',deleteProduct);
+    if(!deleteProduct){
       throw new HttpException('Error to delete record',404)
     }
     return `This action removes a #${id} product: ${deleteProduct} `;

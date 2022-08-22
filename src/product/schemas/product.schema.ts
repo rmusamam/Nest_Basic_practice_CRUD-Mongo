@@ -7,7 +7,7 @@ export type ProductDocument = Product & Document;
 
 export class Product {
     @Prop({ required: true })
-    id: Number;
+    id: String;
 
     @Prop() 
     title:String

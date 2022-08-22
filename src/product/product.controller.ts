@@ -17,20 +17,23 @@ export class ProductController {
     return this.productService.findAll();
   }
 
-  @Get('readById/:id')
-  findOne(@Param('id') id: string) {
-    // console.log('this is id: ',id);
-    const pid =id
-    return this.productService.findOne(pid);
+  @Get('readById/:title')
+  findOne(@Param('title') title: string) {
+    console.log('this is title in controller: ',title);
+    // const pid =title
+    return this.productService.findOne(title);
   }
 
-  @Patch(':id')
+  @Patch('updateProduct/:id')
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
-    return this.productService.update(+id, updateProductDto);
+    // console.log('update data: ',updateProductDto,'and id is : ',id)
+    return this.productService.update(id, updateProductDto);
   }
 
-  @Delete(':id')
+  @Delete('deleteById/:id')
   remove(@Param('id') id: string) {
-    return this.productService.remove(+id);
+    console.log('deleting ID is : ',id);
+    
+    return this.productService.remove(id);
   }
 }
